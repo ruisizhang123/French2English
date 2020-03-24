@@ -7,7 +7,7 @@
 
 ##### Dataset 
 
-  * [Frech2English](http://www.statmt.org/europarl/)
+  * [French2English](http://www.statmt.org/europarl/)
   
 ##### Usage
 
