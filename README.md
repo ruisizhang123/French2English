@@ -27,6 +27,6 @@
   
 ##### Contributor
 
-  * @ [Xuan Wang](18518221958@163.com)
-  * @ [Di Wu](https://github.com/wudi99)
   * @ [Ruisi Zhang](https://github.com/ruisizhang123)
+  * @ [Di Wu](https://github.com/wudi99)
+  * @ [Xuan Wang](18518221958@163.com)
