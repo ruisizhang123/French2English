@@ -7,14 +7,17 @@ from torch import optim
 import torch.nn as nn
 import matplotlib.pyplot as plt
 import argparse
+import os
 device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
+if not os.path.exists('./fig'):
+    os.mkdir('./fig')
 
 parser = argparse.ArgumentParser()
-parser.add_argument("--sentence", type=str, default="elle a cinq ans de moins que moi", help="French sentence to translate(No more than 10 words)")
-parser.add_argument("--visual", type=bool, default=False, help="Show Attention")
-parser.add_argument("--n_iters", type=int, default=750, help="Training iters")
-parser.add_argument("--plot_every", type=int, default=100, help="Sample interval to display loss")
-parser.add_argument("--learning_rate", type=int, default=0.01, help="Learning rate")
+parser.add_argument("-sentence", type=str, default="vous etes trop maigre .", help="French sentence to translate(No more than 10 words)")
+parser.add_argument("-visual", type=bool, default=True, help="Show Attention")
+parser.add_argument("-n_iters", type=int, default=75000, help="Training iters")
+parser.add_argument("-plot_every", type=int, default=100, help="Sample interval to display loss")
+parser.add_argument("-learning_rate", type=int, default=0.01, help="Learning rate")
 opt = parser.parse_args()
 print(opt)
 
@@ -59,7 +62,11 @@ for iter in range(1, opt.n_iters + 1):
         plot_loss_total = 0
         print("[Iter: %d] [Loss: %f]" % (iter,plot_loss_avg))
 
-visualize.showPlot(plot_losses)
+plt.plot(plot_losses)
+plt.xlabel("iterations")
+plt.ylabel("Loss")
+plt.savefig("fig/loss.png")
+
 model.evaluateRandomly(encoder1, attn_decoder1,pairs,input_lang,output_lang)
 
 output_words, attentions = model.evaluate(encoder1, attn_decoder1,opt.sentence,input_lang,output_lang )
@@ -67,3 +74,5 @@ output_words, attentions = model.evaluate(encoder1, attn_decoder1,opt.sentence,i
 print(output_words)
 if opt.visual:
     plt.matshow(attentions.numpy())
+    plt.savefig("fig/attention.png")
+
